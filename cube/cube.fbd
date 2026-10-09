@@ -1,0 +1,47 @@
+# ==========================================================
+# 1 x 1 x 1 mm cube
+# One quadratic hexahedral element: HE20 / C3D20
+# ==========================================================
+
+# Corner points at Z=0
+pnt p1 0 0 0
+pnt p2 1 0 0
+pnt p3 1 1 0
+pnt p4 0 1 0
+
+# Four boundary lines: two divisions per edge
+line l1 p1 p2 2
+line l2 p2 p3 2
+line l3 p3 p4 2
+line l4 p4 p1 2
+
+# Create the base surface
+surf base blend l1 l2 l3 l4
+
+# Sweep surface through 1 mm in Z
+seta base_set s base
+swep base_set cube_set tra 0 0 1 2
+
+# Mesh with quadratic hexahedra
+elty all he20
+mesh all
+
+# Select all mesh nodes
+seta all_nodes n all
+
+# Create boundary-condition node sets
+enq all_nodes bottom rec _ 0 _ 0.00001 a
+enq all_nodes zfix   rec _ _ 0 0.00001 a
+enq all_nodes xfix   rec 0 _ _ 0.00001 a
+enq all_nodes top    rec _ 1 _ 0.00001 a
+
+# Export mesh and node sets for CCX
+send all abq
+send bottom abq nam
+send zfix abq nam
+send xfix abq nam
+send top abq nam
+
+# Display mesh in batch graphics
+plot f all
+plot n all

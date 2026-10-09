@@ -1,0 +1,43 @@
+# ==========================================
+# CalculiX Solver (ccx) Outputs
+# ==========================================
+*.frd       # Volumetric results (displacements, stress, etc.)
+*.dat       # Tabular text output data (force, energy histories)
+*.sta       # Status file tracking convergence iterations
+*.log       # Run execution log files
+*.cvg       # Convergence tracking plot data
+
+# ==========================================
+# Matrix, Mesh, & Restart Dumps
+# ==========================================
+*.rout      # Restart files
+*.rin       # Restart inputs
+*.mas       # Main mesh definition dumps
+*.nam       # Element or node set definitions generated at runtime
+*.rem       # Remeshing files
+*.12d       # 1D/2D structural outputs
+*Matrix*    # Stiffness/mass matrix exports (e.g., .mtx or user-defined matrix dumps)
+
+# ==========================================
+# CalculiX GraphiX (cgx) Outputs
+# ==========================================
+*.fbl       # Generated log text or echo files from cgx routines
+*.ps        # PostScript vector image exports
+*.tga       # Graphic files
+
+# ==========================================
+# Mesh Generators & Pre-processors (e.g., Gmsh, TetGen)
+# ==========================================
+*.msh       # Generated mesh files
+*.nam       # Generate node sets
+*.node      # TetGen point files
+*.ele       # TetGen element files
+*.face      # TetGen surface mesh faces
+
+# ==========================================
+# Operating System & Editor Backups
+# ==========================================
+.DS_Store
+Thumbs.db
+*.bak
+*~
