@@ -1,7 +1,7 @@
 # Cantilever Beam
 Tested with CGX 2.23/ CCX 2.23 (cgx_GLUT and ccx_STATIC) downloaded from https://www.dhondt.de/calculix_2.23_4win.zip
 
-A cantilever beam loaded by point forces at its free end is analyzed. The problem is taken from the CalculiX 2.23 manual nd the geometry, loading and boundary conditions are shown in the 
+A cantilever beam loaded by point forces at its free end is analyzed. The problem is taken from the CalculiX 2.23 manual. The geometry, loading and boundary conditions are shown in the 
 figure below.
 
 <img src="problem.png" width="600" title="Problem description">
@@ -65,3 +65,9 @@ This creates a contour plot of the stress in axial direction.
 <img src="plot_Szz_linearStatic.png" width="300" title="Stress in axial direction">
 
 This figure shows the normal stress in axial direction, which is distributed almost linearly across the height of the beam due to the bending moment.
+
+## Run complete project
+To run the complete project, run:
+```
+> py run.py
+```
