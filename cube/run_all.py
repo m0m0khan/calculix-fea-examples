@@ -120,10 +120,26 @@ def run_solver_and_post(job_name):
     temp_d2_fbd = create_dynamic_fbd(POSTD2_TEMPLATE, job_name, "d2")
 
     print(f"[3/3] Opening results for {job_name} in CGX...")
+
+    # Run displacement / d2 post-processing first
     if temp_d2_fbd:
-        subprocess.Popen([str(CGX), "-b", temp_d2_fbd], cwd=WORKDIR)
+        print(f"[INFO] Running {os.path.basename(temp_d2_fbd)}...")
+        subprocess.run(
+            [str(CGX), "-b", temp_d2_fbd],
+            cwd=WORKDIR,
+            check=False,
+        )
+        print("[OK] First post-processing finished.")
+
+    # Run von Mises post-processing only after the first CGX exits
     if temp_vm_fbd:
-        subprocess.Popen([str(CGX), "-b", temp_vm_fbd], cwd=WORKDIR)
+        print(f"[INFO] Running {os.path.basename(temp_vm_fbd)}...")
+        subprocess.run(
+            [str(CGX), "-b", temp_vm_fbd],
+            cwd=WORKDIR,
+            check=False,
+        )
+        print("[OK] Second post-processing finished.")
 
 
 # ==========================================================
