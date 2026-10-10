@@ -1,3 +1,13 @@
+"""
+This script automates the generation of mesh geometries and parses .frd output 
+files for displacement-controlled and force-controlled cube simulations.
+
+Author: Muhammad Mohsin Khan
+Date: October 09, 2026
+License: MIT
+Repository: https://github.com/m0m0khan/calculix-fea-examples
+"""
+
 import os
 import subprocess
 import sys
