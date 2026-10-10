@@ -1,0 +1,19 @@
+# Read CalculiX results and model sets
+read cantilever_linearstatic.frd
+read cantilever_linearstatic.inp inp nom
+
+# Isometric view with Y-axis vertical
+rot -z
+rot r -55
+rot u 20
+
+# Plot von Szz
+cmap turbo
+ds 2 e 3
+
+# Filled contour plot 
+view elem
+plot fv
+
+# Fit model to the view
+frame

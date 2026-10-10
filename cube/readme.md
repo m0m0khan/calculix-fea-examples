@@ -2,7 +2,7 @@
 Tested with CGX 2.23/ CCX 2.23 (cgx_GLUT and ccx_STATIC) downloaded from https://www.dhondt.de/calculix_2.23_4win.zip
 
 A cube of dimension 1x1x1 mm with a single C3D20 element is displaced by 0.002 mm in the case of displacement-controlled simulation. Similarly, in the case of force-controlled experiment 
-a force of 420 N (equal to 420 N/mm^2 or 420 MPa) is applied. The simulation is linear elastic so according to Hooke's law, in the displacement-controlled case, a constant von Mises stress of 420 MPa is achieved, whereas in the force-controlled a case, the cube is displaced by 0.002 mm.
+a force of 420 N (equal to 420 N/mm<sup>2</sup> or 420 MPa) is applied. The simulation is linear elastic so according to Hooke's law, in the displacement-controlled case, a constant von Mises stress of 420 MPa is achieved, whereas in the force-controlled a case, the cube is displaced by 0.002 mm.
 
 One face of the cube in each translational degree of freedom is constrained. The force and/or displacement is applied in the positive y-direction.
 
@@ -42,7 +42,7 @@ Boundary conditions:
 > cgx -b post_d2
 ```
 
-This creates a contour plot of the displacement in y-direction.
+This creates a contour plot of the displacement in axial direction.
 
 <img src="plot_d2_disp-controlled.png" width="300" title="Von Mises Stress">
 
@@ -50,9 +50,9 @@ This creates a contour plot of the displacement in y-direction.
 > cgx -b post_mises
 ```
 
-This creates a contour plot of the von Mises in y-direction.
+This creates a contour plot of the von Mises stress.
 
-<img src="plot_mises_disp-controlled.png" width="300" title="Von Mises Stress">
+<img src="plot_mises_disp-controlled.png" width="300" title="Displacement in axial direction">
 
 ## Run complete project
 To run the complete project, run:

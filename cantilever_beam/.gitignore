@@ -1,0 +1,20 @@
+# ==========================================
+# CalculiX Solver (ccx) Outputs
+# ==========================================
+# CalculiX generated output files
+*.frd
+*.dat
+*.sta
+*.log
+*.cvg
+*.12d
+*.nam
+*.msh
+
+# ==========================================
+# Operating System & Editor Backups
+# ==========================================
+.DS_Store
+Thumbs.db
+*.bak
+*~

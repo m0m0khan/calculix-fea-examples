@@ -7,3 +7,8 @@ This repository demonstrates the use of [CalculiX](http://www.dhondt.de/) for va
   width="200"
   title="Linear elastic displacement of a single element cube">
   ](cube/)
+[<img
+  src="cantilever_beam/plot_disp_linearStatic.png"
+  width="200"
+  title="Linear elastic analysis of a cantilever beam">
+](cantilever_beam//)

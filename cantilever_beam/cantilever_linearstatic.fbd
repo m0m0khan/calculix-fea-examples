@@ -1,0 +1,62 @@
+Author: Muhammad Mohsin Khan
+Created: 9.10.2026
+# ==========================================================
+# CalculiX GraphiX (cgx) FBD script
+# Section 5.1 - Cantilever beam from the CalculiX CrunchiX manual
+# Unit system: mm, s, N, tonne
+#
+# Geometry: 1000 x 1000 x 8000 mm; beam axis is global Z.
+# Fixed end: z = 0 mm. Free/load end: z = 8000 mm.
+# Reference end force for the CCX input deck: 9.0E6 N.
+#
+# Mesh: linear hexahedra (HE8/C3D20R), 10 x 10 x 80 divisions.
+# Expected nominal mesh: 8000 brick elements.
+#
+# Run from a writable working directory:
+#   cgx -b cantilever_5_1_mm.fbd
+#
+# The script exports the mesh and named node sets. Depending on the CGX
+# version, the Abaqus-format mesh/set files are written using the set names.
+# ==========================================================
+
+valu L 8000
+valu B 1000
+valu H 1000
+valu NX 10
+valu NY 10
+valu NZ 80
+valu TOL 0.01
+
+# Create a 1000 mm line along X, then sweep it in Y to create the square
+# cross-section, then sweep the cross-section in Z to create the solid.
+pnt p1 0 0 0
+pnt p2 B 0 0
+line lbase p1 p2
+div lbase NX
+seta base_line l lbase
+
+swep base_line cross_section tra 0 H 0 NY
+seta cross_section_surfaces s A001
+
+swep cross_section_surfaces beam tra 0 0 L NZ
+
+# Mesh the swept solid with linear hexahedral elements.
+elty all he20r
+mesh all
+
+# Select all mesh nodes, then select the two end faces by coordinate.
+seta ALL_NODES n all
+enq ALL_NODES FIX rec _ _ 0 TOL
+enq ALL_NODES LOADEND rec _ _ L TOL
+
+# Export the full mesh and named node sets in Abaqus/CalculiX-compatible
+# format. FIX and LOADEND are node sets for *BOUNDARY and *CLOAD usage.
+send all abq
+send FIX abq nam
+send LOADEND abq nam
+send ALL_NODES abq nam
+
+# Optional visual checks when running interactively:
+# plot e all
+# plot n FIX
+# plot n LOADEND

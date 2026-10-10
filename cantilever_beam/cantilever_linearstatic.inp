@@ -1,0 +1,38 @@
+*HEADING
+1000x1000x8000 mm cantilever beam - linear elastic static analysis
+** Units: mm, N, tonne, s
+** Geometry assumed from the accompanying CGX script: 1000 x 1000 x 8000 mm
+** Mesh: 10 x 10 x 80 divisions; nominally 8000 HE8 elements
+** Total applied load: 9.0E6 N in global +Y, distributed over 121 end-face nodes
+**
+*INCLUDE, INPUT=all.msh
+*INCLUDE, INPUT=FIX.nam
+*INCLUDE, INPUT=LOADEND.nam
+**
+** Boundary conditions: fully fix the z=0 end (translations 1, 2, 3)
+*BOUNDARY
+NFIX, 1, 3
+**
+** Linear elastic steel, as in manual example
+*MATERIAL, NAME=EL
+*ELASTIC
+210000.0, 0.3
+*SOLID SECTION, ELSET=Eall, MATERIAL=EL
+**
+*STEP
+*STATIC
+**
+** Distribute total resultant over the nodes in LOADEND.
+** 121 nodes on an 11 x 11 grid; each node receives 74380.16529 N in DOF 2.
+*CLOAD
+NLOADEND, 2, 74380.16529
+**
+*NODE PRINT, NSET=NALL_NODES
+U, RF
+*EL PRINT, ELSET=Eall
+S, E
+*NODE FILE
+U, RF
+*EL FILE
+S, E
+*END STEP
