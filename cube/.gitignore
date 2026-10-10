@@ -11,9 +11,6 @@
 *.nam
 *.msh
 
-# Generated plots
-*.png
-
 # ==========================================
 # Operating System & Editor Backups
 # ==========================================
