@@ -42,7 +42,7 @@ Boundary conditions:
 > cgx -b post_d2
 ```
 
-This creates a contour plot of the displacement in y-direction.
+This creates a contour plot of the displacement in axial direction.
 
 <img src="plot_d2_disp-controlled.png" width="300" title="Von Mises Stress">
 
@@ -50,9 +50,9 @@ This creates a contour plot of the displacement in y-direction.
 > cgx -b post_mises
 ```
 
-This creates a contour plot of the von Mises in y-direction.
+This creates a contour plot of the von Mises stress.
 
-<img src="plot_mises_disp-controlled.png" width="300" title="Von Mises Stress">
+<img src="plot_mises_disp-controlled.png" width="300" title="Displacement in axial direction">
 
 ## Run complete project
 To run the complete project, run:

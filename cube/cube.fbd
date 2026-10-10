@@ -1,6 +1,20 @@
+Author: Muhammad Mohsin Khan
+Created: 9.10.2026
 # ==========================================================
-# 1 x 1 x 1 mm cube
-# One quadratic hexahedral element: HE20 / C3D20
+# CalculiX GraphiX (cgx) FBD script
+# Single element cube model
+# Unit system: mm, s, N, tonne
+#
+# Geometry: 1 x 1 x 1 mm; Vertical axis is y-axis
+# One face in each axis is fixed in the corresponding direction.
+#
+# Mesh: One quadratic hexahedral element: HE20 / C3D20
+#
+# Run from a writable working directory:
+#   cgx -b cube.fbd
+#
+# The script exports the mesh and named node sets. Depending on the CGX
+# version, the Abaqus-format mesh/set files are written using the set names.
 # ==========================================================
 
 # Corner points at Z=0
