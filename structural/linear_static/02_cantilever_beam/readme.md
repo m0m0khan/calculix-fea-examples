@@ -1,27 +1,34 @@
 # Cantilever Beam
-Tested with CGX 2.23/ CCX 2.23
 
-A cantilever beam loaded by point forces at its free end is analyzed. The problem is taken from the CalculiX 2.23 manual. The geometry, loading and boundary conditions are shown in the 
-figure below.
+## Purpose
+Demonstration of linear static analysis of a cantilever beam fully fixed at one end.
+
+A cantilever beam loaded by point forces at its free end is analyzed. The problem is taken from the CalculiX 2.23 manual. The geometry, loading and boundary conditions are shown in the figure below.
 
 <img src="inputs/problem.png" width="600" title="Problem description">
 
 The beam size is 1000 x 1000 x 8000 mm<sup>3</sup>, which is loaded with a point force of 9x10<sup>6</sup> N and is completely fixed in all directions on the left end.
 
-File                                                                    | Contents    
-:-------------                                                          | :-------------
-[cantilever_linearstatic.fbd](cantilever_linearstatic.fbd)              | Pre-processing script for CGX for generating cube and its mesh     
-[cantilever_linearstatic.inp](cube_force_controlled.inp)                | CCX input of the simulation
-[post_disp.fbd](expansion.fbd)                                          | Post-processing script for CGX (contour plot of displacement magnitude)
-[post_mises.fbd](expansion.fbd)                                         | Post-processing script for CGX (contour plot of von Mises stress)
-[post_Szz.fbd](expansion.fbd)                                           | Post-processing script for CGX (contour plot of stress in axial direction)
-[run_cantilever.py](run_cantilever.py)                                  | Run all commands to solve and view the simulation's results
+## Platform
+Software: Tested with cgx 2.23/ccx 2.23\
+OS: Windows 11 and Ubuntu 26.04 on WSL2 (Windows 11)
+
+## Contents
+
+File                                                         | Contents    
+:-------------                                               | :-------------
+[cantilever_linearstatic.fbd](cantilever_linearstatic.fbd)   | Pre-processing script for CGX for generating cube and its mesh     
+[cantilever_linearstatic.inp](cantilever_linearstatic.inp)   | CCX input of the simulation
+[post_disp.fbd](post_disp.fbd)                               | Post-processing script for CGX (contour plot of displacement magnitude)
+[post_mises.fbd](post_mises.fbd)                             | Post-processing script for CGX (contour plot of von Mises stress)
+[post_Szz.fbd](post_Szz.fbd)                                 | Post-processing script for CGX (contour plot of stress in axial direction)
+[run.py](run.py)                                             | Run all commands to solve and view the simulation's results
 
 ## Preprocessing
-An example to run the displacement-controlled simulation. Elements of second order quadrilateral with reduced integration (C3D20R) are used.
+Elements of second order quadrilateral with reduced integration (C3D20R) are used for the analysis.
 
 Boundary conditions:
-* Left end fixed in all direcitons: ux = uy = uz = 0 mm
+* Left end fixed in all directions: ux = uy = uz = 0 mm
 
 Loading:
 * Point force applied on the right end with 9x10<sup>6</sup> N
@@ -70,5 +77,5 @@ This figure shows the normal stress in axial direction, which is distributed alm
 ## Run complete project
 To run the complete project, run:
 ```
-> py run_cantilever.py
+> py run.py
 ```

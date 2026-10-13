@@ -1,0 +1,136 @@
+Author: Muhammad Mohsin Khan
+Created: 9.10.2026
+# ==========================================================
+# CalculiX GraphiX (cgx) FBD script
+# Single element cube model
+# Unit system: mm, s, N, tonne
+#
+# Geometry: 1 x 1 x 1 mm; Vertical axis is y-axis
+# One face in each axis is fixed in the corresponding direction.
+#
+# Mesh: One quadratic hexahedral element: HE20 / C3D20
+#
+# Run from a writable working directory:
+#   cgx -b cube_linearstatic.fbd
+#
+# The script exports the mesh and named node sets. Depending on the CGX
+# version, the Abaqus-format mesh/set files are written using the set names.
+# ==========================================================
+
+# ==================================================
+# CUBE 1: X = 0 to 1 mm
+# ==================================================
+
+# Corner points at Z=0
+pnt p1 0 0 0
+pnt p2 1 0 0
+pnt p3 1 1 0
+pnt p4 0 1 0
+
+# Four boundary lines: two divisions per edge
+line l1 p1 p2 2
+line l2 p2 p3 2
+line l3 p3 p4 2
+line l4 p4 p1 2
+
+# Create the base surface
+surf base blend l1 l2 l3 l4
+
+# Sweep surface through 1 mm in Z
+seta base_set s base
+swep base_set cube_set tra 0 0 1 2
+
+
+# ==================================================
+# CUBE 2: X = 2 to 3 mm
+# ==================================================
+
+# Corner points at Z=0
+pnt p5 2 0 0
+pnt p6 3 0 0
+pnt p7 3 1 0
+pnt p8 2 1 0
+
+# Four boundary lines: two divisions per edge
+line l5 p5 p6 2
+line l6 p6 p7 2
+line l7 p7 p8 2
+line l8 p8 p5 2
+
+# Create the second base surface
+surf base2 blend l5 l6 l7 l8
+
+# Sweep surface through 1 mm in Z
+seta base_set2 s base2
+swep base_set2 cube_set2 tra 0 0 1 2
+
+
+# ==================================================
+# MESH BOTH CUBES
+# ==================================================
+
+elty all he20
+mesh all
+
+# Select all mesh nodes
+seta all_nodes n all
+
+# Separate nodes by X coordinate
+# Cube 1: centre X=0.5, half-width=0.5
+# Cube 2: centre X=2.5, half-width=0.5
+enq all_nodes nodes1 rec 0.5 _ _ 0.50001 a
+enq all_nodes nodes2 rec 2.5 _ _ 0.50001 a
+
+
+# ==================================================
+# BOUNDARY SETS: CUBE 1
+# ==================================================
+
+enq nodes1 bottom rec _ 0 _ 0.00001 a
+enq nodes1 zfix   rec _ _ 0 0.00001 a
+enq nodes1 xfix   rec 0 _ _ 0.00001 a
+enq nodes1 top    rec _ 1 _ 0.00001 a
+
+
+# ==================================================
+# BOUNDARY SETS: CUBE 2
+# ==================================================
+
+enq nodes2 bottom2 rec _ 0 _ 0.00001 a
+enq nodes2 zfix2   rec _ _ 0 0.00001 a
+enq nodes2 xfix2   rec 2 _ _ 0.00001 a
+enq nodes2 top2    rec _ 1 _ 0.00001 a
+
+
+# Top surface of cube 1 at Y=1
+enq nodes1 topsurf1 rec _ 1 _ 0.00001 a
+comp topsurf1 do
+
+# Top surface of cube 2 at Y=1
+enq nodes2 topsurf2 rec _ 1 _ 0.00001 a
+comp topsurf2 do
+
+# Export element-face surface definitions
+send topsurf1 abq sur
+send topsurf2 abq sur
+
+# ==================================================
+# EXPORT MESH AND NODE SETS FOR CCX
+# ==================================================
+
+send all abq
+
+send bottom abq nam
+send zfix abq nam
+send xfix abq nam
+send top abq nam
+
+send bottom2 abq nam
+send zfix2 abq nam
+send xfix2 abq nam
+send top2 abq nam
+
+
+# Display mesh
+plot f all
+plot n all

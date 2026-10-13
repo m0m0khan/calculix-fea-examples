@@ -10,6 +10,8 @@
 *.12d
 *.nam
 *.msh
+*.sur
+*.dlo
 
 # ==========================================
 # Operating System & Editor Backups
