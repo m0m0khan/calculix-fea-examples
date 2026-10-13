@@ -8,7 +8,7 @@ A cube of dimension 1x1x1 mm with a single C3D20 element is displaced by 0.002 m
 One face of the cube in each translational degree of freedom is constrained. The displacement and force are applied in the positive y-direction.
 
 ## Platform
-Software: Tested with cgx 2.23/ccx 2.23
+Software: Tested with cgx 2.23/ccx 2.23\
 OS: Windows 11 and Ubuntu 26.04 on WSL2 (Windows 11)
 
 ## Contents
