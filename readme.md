@@ -2,7 +2,7 @@
 A collection of finite element analysis (FEA) examples using **[CalculiX](http://www.dhondt.de/)**, an open-source finite element analysis solver.
 
 [<img
-  src="structural/linear_static/01_cube/results/plot_d2_disp-controlled.png"
+  src="structural/linear_static/01_cube/results/plot_d2.png"
   width="200"
   title="Linear elastic displacement of a single element cube">
   ](structural/linear_static/01_cube/)

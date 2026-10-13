@@ -7,8 +7,12 @@
 *INCLUDE, INPUT=zfix.nam
 *INCLUDE, INPUT=xfix.nam
 *INCLUDE, INPUT=top.nam
-*SURFACE, NAME=TOPSURF, TYPE=ELEMENT
-1, S6
+*INCLUDE, INPUT=topsurf1.sur
+*INCLUDE, INPUT=bottom2.nam
+*INCLUDE, INPUT=zfix2.nam
+*INCLUDE, INPUT=xfix2.nam
+*INCLUDE, INPUT=top2.nam
+*INCLUDE, INPUT=topsurf2.sur
 **
 *MATERIAL, NAME=STEEL
 *ELASTIC
@@ -24,8 +28,12 @@
 Nbottom, 2, 2, 0.
 Nzfix,   3, 3, 0.
 Nxfix,   1, 1, 0.
+Ntop,    2, 2, 0.002
+Nbottom2, 2, 2, 0.
+Nzfix2,   3, 3, 0.
+Nxfix2,   1, 1, 0.
 *DSLOAD
-TOPSURF, P, -420.
+Stopsurf2, P, -420.
 **
 *NODE FILE
 U, RF

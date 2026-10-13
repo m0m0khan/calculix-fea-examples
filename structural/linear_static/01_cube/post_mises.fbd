@@ -1,6 +1,6 @@
 # Read CalculiX results and model sets
-read cube_displacement_controlled.frd
-read cube_displacement_controlled.inp inp nom
+read cube_linearstatic.frd
+read cube_linearstatic.inp inp nom
 
 # Isometric view with Y-axis vertical
 rot z
@@ -16,4 +16,3 @@ view elem
 
 # Fit model to the view
 frame
-zoom 0.75

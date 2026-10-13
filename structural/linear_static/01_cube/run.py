@@ -1,13 +1,11 @@
-
 """
-This script automates mesh generation, runs the cantilever linear-static
-simulation using CalculiX, and launches CGX post-processing for
-displacement, von Mises stress, and Szz stress.
+This script automates the generation of mesh geometries and parses .frd output 
+files for displacement-controlled and force-controlled cube simulations.
 
 Author: Muhammad Mohsin Khan
-Date: October 10, 2026
+Date: October 09, 2026
 License: MIT
-Repository: https://github.com/m0m0khan/calculix-fea-examples
+Repository: https://github.com/mkhan138/calculix-fea-examples
 """
 
 import os
@@ -23,7 +21,7 @@ CGX = "cgx.exe"
 CCX = "ccx.exe"
 
 # Simulation job name (without file extension)
-JOB_NAME = "cantilever_linearstatic"
+JOB_NAME = "cube_linearstatic"
 
 # Input files
 FBD = os.path.join(WORKDIR, f"{JOB_NAME}.fbd")
@@ -31,9 +29,8 @@ INP = os.path.join(WORKDIR, f"{JOB_NAME}.inp")
 
 # Post-processing scripts
 POSTPROCESSING_FILES = [
-    "post_disp.fbd",
-    "post_mises.fbd",
-    "post_Szz.fbd",
+    "post_d2.fbd",
+    "post_mises.fbd"
 ]
 
 
