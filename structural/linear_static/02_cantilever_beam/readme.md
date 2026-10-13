@@ -10,7 +10,7 @@ A cantilever beam loaded by point forces at its free end is analyzed. The proble
 The beam size is 1000 x 1000 x 8000 mm<sup>3</sup>, which is loaded with a point force of 9x10<sup>6</sup> N and is completely fixed in all directions on the left end.
 
 ## Platform
-Software: Tested with cgx 2.23/ccx 2.23
+Software: Tested with cgx 2.23/ccx 2.23\
 OS: Windows 11 and Ubuntu 26.04 on WSL2 (Windows 11)
 
 ## Contents
