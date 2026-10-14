@@ -7,7 +7,7 @@ A collection of finite element analysis (FEA) examples using **[CalculiX](http:/
   title="Linear elastic displacement of a single element cube">
   ](structural/linear_static/01_cube/)
 [<img
-  src="structural/linear_static/02_cantilever_beam/results/plot_disp_linearStatic.png"
+  src="structural/linear_static/02_cantilever_beam/results/plot_d2_linearStatic.png"
   width="200"
   title="Linear elastic analysis of a cantilever beam">
 ](structural/linear_static/02_cantilever_beam/)

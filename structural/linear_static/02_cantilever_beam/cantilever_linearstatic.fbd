@@ -13,50 +13,76 @@ Created: 9.10.2026
 # Expected nominal mesh: 8000 brick elements.
 #
 # Run from a writable working directory:
-#   cgx -b cantilever_5_1_mm.fbd
+#   cgx -b cantilever_linearstatic.fbd
 #
 # The script exports the mesh and named node sets. Depending on the CGX
 # version, the Abaqus-format mesh/set files are written using the set names.
 # ==========================================================
 
+# Geometry dimensions [mm]
 valu L 8000
 valu B 1000
 valu H 1000
-valu NX 10
-valu NY 10
-valu NZ 80
+
+# Quadratic line divisions:
+# two divisions per quadratic element
+valu NX 4
+valu NY 4
+valu NZ 16
+
+# Coordinate selection tolerance [mm]
 valu TOL 0.01
 
-# Create a 1000 mm line along X, then sweep it in Y to create the square
-# cross-section, then sweep the cross-section in Z to create the solid.
+# Midpoint coordinates for the nine-node load grid
+valu BX / B 2
+valu HY / H 2
+
+# Create the base line along global X
 pnt p1 0 0 0
 pnt p2 B 0 0
 line lbase p1 p2
 div lbase NX
 seta base_line l lbase
 
+# Sweep along global Y to create the square cross-section
 swep base_line cross_section tra 0 H 0 NY
 seta cross_section_surfaces s A001
 
+# Sweep along global Z to create the beam
 swep cross_section_surfaces beam tra 0 0 L NZ
 
-# Mesh the swept solid with linear hexahedral elements.
+# Generate quadratic reduced-integration brick elements
 elty all he20r
 mesh all
 
-# Select all mesh nodes, then select the two end faces by coordinate.
+# Create a node-only set for coordinate-based selection
 seta ALL_NODES n all
-enq ALL_NODES FIX rec _ _ 0 TOL
-enq ALL_NODES LOADEND rec _ _ L TOL
 
-# Export the full mesh and named node sets in Abaqus/CalculiX-compatible
-# format. FIX and LOADEND are node sets for *BOUNDARY and *CLOAD usage.
+# Select every node on the fixed and free end faces
+enq ALL_NODES FIX rec _ _ 0 TOL a
+enq ALL_NODES END_FACE rec _ _ L TOL a
+
+# Select the nine corner-grid nodes at the free end.
+# Do not include the additional midside nodes in LOADEND.
+enq END_FACE LD01 rec 0 0 L TOL a
+enq END_FACE LD02 rec BX 0 L TOL a
+enq END_FACE LD03 rec B 0 L TOL a
+
+enq END_FACE LD04 rec 0 HY L TOL a
+enq END_FACE LD05 rec BX HY L TOL a
+enq END_FACE LD06 rec B HY L TOL a
+
+enq END_FACE LD07 rec 0 H L TOL a
+enq END_FACE LD08 rec BX H L TOL a
+enq END_FACE LD09 rec B H L TOL a
+
+# Combine the nine selected nodes into LOADEND
+seta LOADEND n LD01 LD02 LD03
+seta LOADEND n LD04 LD05 LD06
+seta LOADEND n LD07 LD08 LD09
+
+# Export mesh and node sets
 send all abq
 send FIX abq nam
 send LOADEND abq nam
 send ALL_NODES abq nam
-
-# Optional visual checks when running interactively:
-# plot e all
-# plot n FIX
-# plot n LOADEND

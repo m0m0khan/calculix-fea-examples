@@ -9,7 +9,7 @@ rot u 20
 
 # Plot von Szz
 cmap turbo
-ds 1 e 4
+ds 1 e 2
 
 # Filled contour plot 
 view elem

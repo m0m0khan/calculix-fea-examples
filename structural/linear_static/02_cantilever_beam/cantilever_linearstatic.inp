@@ -8,29 +8,38 @@
 *INCLUDE, INPUT=all.msh
 *INCLUDE, INPUT=FIX.nam
 *INCLUDE, INPUT=LOADEND.nam
+*INCLUDE, INPUT=ALL_NODES.nam
 **
-** Boundary conditions: fully fix the z=0 end (translations 1, 2, 3)
+** Fully constrain all translations on the z=0 face
 *BOUNDARY
 NFIX, 1, 3
 **
-** Linear elastic steel, as in manual example
+** Material definition
 *MATERIAL, NAME=EL
 *ELASTIC
 210000.0, 0.3
+**
+** Assign material to every solid element
 *SOLID SECTION, ELSET=Eall, MATERIAL=EL
 **
+** Linear static analysis
 *STEP
 *STATIC
 **
-** Distribute total resultant over the nodes in LOADEND.
-** 121 nodes on an 11 x 11 grid; each node receives 74380.16529 N in DOF 2.
+** Apply 1.0E6 N to each of the nine NLOADEND nodes
+** DOF 2 = global Y
 *CLOAD
-NLOADEND, 2, 74380.16529
+NLOADEND, 2, 1000000.0
 **
+** Nodal displacement and force output
 *NODE PRINT, NSET=NALL_NODES
 U, RF
+**
+** Integration-point stress and strain output
 *EL PRINT, ELSET=Eall
 S, E
+**
+** Results for graphical post-processing
 *NODE FILE
 U, RF
 *EL FILE

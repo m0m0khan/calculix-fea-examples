@@ -7,7 +7,7 @@ A cantilever beam loaded by point forces at its free end is analyzed. The proble
 
 <img src="inputs/problem.png" width="600" title="Problem description">
 
-The beam size is 1000 x 1000 x 8000 mm<sup>3</sup>, which is loaded with a point force of 9x10<sup>6</sup> N and is completely fixed in all directions on the left end.
+The beam size is 1000 x 1000 x 8000 mm<sup>3</sup>, which is loaded with a point force of 9x10<sup>6</sup> N and is completely fixed in all directions on the left end. See [analytical_solution_cantilever_beam.ipynb](reference/analytical_solution_cantilever_beam.ipynb) for the analytical solution.
 
 ## Platform
 Software: Tested with cgx 2.23/ccx 2.23\
@@ -19,9 +19,9 @@ File                                                         | Contents
 :-------------                                               | :-------------
 [cantilever_linearstatic.fbd](cantilever_linearstatic.fbd)   | Pre-processing script for CGX for generating cube and its mesh     
 [cantilever_linearstatic.inp](cantilever_linearstatic.inp)   | CCX input of the simulation
-[post_disp.fbd](post_disp.fbd)                               | Post-processing script for CGX (contour plot of displacement magnitude)
+[post_d2.fbd](post_d2.fbd)                                   | Post-processing script for CGX (contour plot of displacement in y direction)
 [post_mises.fbd](post_mises.fbd)                             | Post-processing script for CGX (contour plot of von Mises stress)
-[post_Szz.fbd](post_Szz.fbd)                                 | Post-processing script for CGX (contour plot of stress in axial direction)
+[post_Szz.fbd](post_Szz.fbd)                                 | Post-processing script for CGX (contour plot of stress in z direction)
 [run.py](run.py)                                             | Run all commands to solve and view the simulation's results
 
 ## Preprocessing
@@ -46,14 +46,14 @@ Loading:
 
 ## Postprocessing
 ```
-> cgx -b post_disp.fbd
+> cgx -b post_d2.fbd
 ```
 
-This creates a contour plot of the displacement magnitude with a deformation factor of 10.
+This creates a contour plot of the displacement in y-direction magnitude with a deformation factor of 10. 
 
-<img src="results/plot_disp_linearStatic.png" width="300" title="Displacement magnitude">
+<img src="results/plot_d2_linearStatic.png" width="300" title="Displacement magnitude">
 
-This figure shows the deformation of the bea, under the load. As expected, the beam bends due to the lateral force at its right end.
+This figure shows the deformation of the beam, under the load. As expected, the beam bends due to the lateral force at its right end. The result here exactly matches with the analytical solution, as mentioned in [analytical_solution_cantilever_beam.ipynb](reference/analytical_solution_cantilever_beam.ipynb).
 
 ```
 > cgx -b post_mises.fbd
