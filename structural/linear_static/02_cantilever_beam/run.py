@@ -31,7 +31,7 @@ INP = os.path.join(WORKDIR, f"{JOB_NAME}.inp")
 
 # Post-processing scripts
 POSTPROCESSING_FILES = [
-    "post_disp.fbd",
+    "post_d2.fbd",
     "post_mises.fbd",
     "post_Szz.fbd",
 ]

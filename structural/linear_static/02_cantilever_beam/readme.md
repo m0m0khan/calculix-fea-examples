@@ -7,7 +7,11 @@ A cantilever beam loaded by point forces at its free end is analyzed. The proble
 
 <img src="inputs/problem.png" width="600" title="Problem description">
 
-The beam size is 1000 x 1000 x 8000 mm<sup>3</sup>, which is loaded with a point force of 9x10<sup>6</sup> N and is completely fixed in all directions on the left end. See [analytical_solution_cantilever_beam.ipynb](reference/analytical_solution_cantilever_beam.ipynb) for the analytical solution.
+The beam size is 1000 x 1000 x 8000 mm<sup>3</sup>, which is loaded with a point force of 9x10<sup>6</sup> N and is completely fixed in all directions on the left end. See [analytical solution](reference/analytical_solution_cantilever_beam.ipynb) for the analytical solution.
+
+<img src="inputs/bc.png" width="600" title="Boundary conditions">
+
+The nodes in red show the fixed end of the beam where it is fixed in all directions and the free end is shown in blue where load in applied in positive y direction.
 
 ## Platform
 Software: Tested with cgx 2.23/ccx 2.23\
@@ -49,11 +53,11 @@ Loading:
 > cgx -b post_d2.fbd
 ```
 
-This creates a contour plot of the displacement in y-direction magnitude with a deformation factor of 10. 
+This creates a contour plot of the displacement in y direction with a deformation factor of 10. 
 
-<img src="results/plot_d2_linearStatic.png" width="300" title="Displacement magnitude">
+<img src="results/plot_d2_linearStatic.png" width="300" title="Displacement in y direction">
 
-This figure shows the deformation of the beam, under the load. As expected, the beam bends due to the lateral force at its right end. The result here exactly matches with the analytical solution, as mentioned in [analytical_solution_cantilever_beam.ipynb](reference/analytical_solution_cantilever_beam.ipynb).
+This figure shows the deformation of the beam, under the load. As expected, the beam bends due to the lateral force at its right end. The result here exactly matches with the analytical solution, as mentioned in [analytical solution](reference/analytical_solution_cantilever_beam.ipynb).
 
 ```
 > cgx -b post_mises.fbd
@@ -75,7 +79,18 @@ This creates a contour plot of the stress in axial direction.
 This figure shows the normal stress in axial direction, which is distributed almost linearly across the height of the beam due to the bending moment.
 
 ## Run complete project
-To run the complete project, run:
+To run the complete project on linux, run:
+```
+> chmod +x run_linux.sh
+> ./run_linux.sh
+```
+
+On windows, double click on "run_windows.bat", or open cmd, navigate to the directory and run:
+```
+> run_windows.bat
+```
+
+Using python3 on any platform:
 ```
 > py run.py
 ```
