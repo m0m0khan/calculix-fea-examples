@@ -51,7 +51,7 @@ Loading:
 
 This creates a contour plot of the displacement in axial direction.
 
-<img src="results/plot_d2.png" width="300" title="Von Mises Stress">
+<img src="results/plot_d2.png" width="300" title="Displacement in axial direction">
 
 ```
 > cgx -b post_mises.fbd
@@ -59,10 +59,21 @@ This creates a contour plot of the displacement in axial direction.
 
 This creates a contour plot of the von Mises stress.
 
-<img src="results/plot_mises.png" width="300" title="Displacement in axial direction">
+<img src="results/plot_mises.png" width="300" title="Von Mises Stress">
 
 ## Run complete project
-To run the complete project, run:
+To run the complete project on linux, run:
+```
+> chmod +x run_linux.sh
+> ./run_linux.sh
+```
+
+On windows, double click on "run_windows.bat", or open cmd, navigate to the directory and run:
+```
+> run_windows.bat
+```
+
+Using python3 on any platform:
 ```
 > py run.py
 ```
