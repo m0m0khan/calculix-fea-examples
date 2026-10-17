@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 """
 This script automates mesh generation, runs the cantilever linear-static
 simulation using CalculiX, and launches CGX post-processing for

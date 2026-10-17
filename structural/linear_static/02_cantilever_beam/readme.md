@@ -26,7 +26,9 @@ File                                                         | Contents
 [post_d2.fbd](post_d2.fbd)                                   | Post-processing script for CGX (contour plot of displacement in y direction)
 [post_mises.fbd](post_mises.fbd)                             | Post-processing script for CGX (contour plot of von Mises stress)
 [post_Szz.fbd](post_Szz.fbd)                                 | Post-processing script for CGX (contour plot of stress in z direction)
-[run.py](run.py)                                             | Run all commands to solve and view the simulation's results
+[run_windows.bat](run_windows.bat)                           | Run all commands to solve and view the simulations' results on windows
+[run_linux.sh](run_linux.sh)                                 | Run all commands to solve and view the simulations' results on linux
+[run.py](run.py)                                             | Run all commands to solve and view the simulations' results on any platform
 
 ## Preprocessing
 Elements of second order quadrilateral with reduced integration (C3D20R) are used for the analysis.
@@ -92,5 +94,5 @@ On windows, double click on "run_windows.bat", or open cmd, navigate to the dire
 
 Using python3 on any platform:
 ```
-> py run.py
+> python run.py
 ```

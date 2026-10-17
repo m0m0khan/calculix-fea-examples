@@ -19,7 +19,9 @@ File                                             | Contents
 [cube_linearstatic.inp](cube_linearstatic.inp)   | CCX input for force controlled simulation
 [post_d2.fbd](post_d2.fbd)                       | Post-processing script for CGX (contour plot of displacement in y-direction)
 [post_mises.fbd](post_mises.fbd)                 | Post-processing script for CGX (contour plot of von Mises stress)
-[run.py](run.py)                                 | Run all commands to solve and view the simulation's results
+[run_windows.bat](run_windows.bat)               | Run all commands to solve and view the simulations' results on windows
+[run_linux.sh](run_linux.sh)                     | Run all commands to solve and view the simulations' results on linux
+[run.py](run.py)                                 | Run all commands to solve and view the simulations' results on any platform
 
 ## Preprocessing
 An example to run the simulation. Second order quadrilateral fully integrated single element (C3D20) is used for the analysis.
@@ -75,5 +77,5 @@ On windows, double click on "run_windows.bat", or open cmd, navigate to the dire
 
 Using python3 on any platform:
 ```
-> py run.py
+> python run.py
 ```
