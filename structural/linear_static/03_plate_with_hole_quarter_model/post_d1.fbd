@@ -1,0 +1,20 @@
+# Read CalculiX results and model sets
+read plate_with_hole_quarter.frd
+read plate_with_hole_quarter.inp inp nom
+
+# Isometric view with Y-axis vertical
+rot -z
+rot d -10
+rot r 35
+
+# Plot displacement magnitude
+ds 1 e 1
+
+# Filled contour plot 
+view surf
+view fill
+view elem
+plot fv all
+
+# Fit model to the view
+frame all

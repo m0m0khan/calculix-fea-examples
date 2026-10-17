@@ -1,0 +1,150 @@
+# ================================================================
+# CGX 2.23 batch file: quarter plate with circular hole
+# Units: mm, N, MPa
+#
+# Geometry:
+#   Quarter model: 100 x 100 x 10 mm
+#   Hole radius: 20 mm, centered at x=0, y=0
+#   XSYMM: x=0 face
+#   YSYMM: y=0 face
+#   LOAD_FACE: x=100 face
+#
+# Mesh:
+#   C3D20, CGX type he20
+#   16 divisions on each 45-degree hole arc
+#   16 divisions on each inner radial segment
+#   16 divisions on each outer radial segment
+#   4 divisions through thickness
+# ================================================================
+
+# ---------- Points on the z=0 section ----------
+# Hole boundary
+pnt P_HX   20.000000   0.000000   0.000000
+pnt P_H45  14.142136  14.142136   0.000000
+pnt P_HY    0.000000  20.000000   0.000000
+
+# Intermediate radius R=50 mm
+pnt P_MX   50.000000   0.000000   0.000000
+pnt P_M45  35.355339  35.355339   0.000000
+pnt P_MY    0.000000  50.000000   0.000000
+
+# External boundary
+pnt P_OX  100.000000   0.000000   0.000000
+pnt P_OC  100.000000 100.000000   0.000000
+pnt P_OY    0.000000 100.000000   0.000000
+
+# Circle center for arc definitions
+pnt P_C     0.000000   0.000000   0.000000
+
+# ---------- Lines ----------
+# Hole arcs
+line L_H1 P_HX  P_H45 P_C 16
+line L_H2 P_H45 P_HY  P_C 16
+
+# Intermediate circular arcs at R=50 mm
+line L_M1 P_MX  P_M45 P_C 16
+line L_M2 P_M45 P_MY  P_C 16
+
+# Inner radial segments, biased toward the hole
+line L_R0_in P_HX  P_MX  16 1.1
+line L_R1_in P_H45 P_M45 16 1.1
+line L_R2_in P_HY  P_MY  16 1.1
+
+# Outer radial segments, biased toward the external boundary
+line L_R0_out P_MX  P_OX 16 0.9
+line L_R1_out P_M45 P_OC 16 0.9
+line L_R2_out P_MY  P_OY 16 0.9
+
+# External edges
+line L_LOAD P_OX P_OC 16
+line L_TOP  P_OC P_OY 16
+
+# ---------- Four structured surfaces on z=0 ----------
+surf A_1_in  L_H1 L_R1_in  L_M1   L_R0_in
+surf A_2_in  L_H2 L_R2_in  L_M2   L_R1_in
+surf A_1_out L_M1 L_R1_out L_LOAD L_R0_out
+surf A_2_out L_M2 L_R2_out L_TOP  L_R1_out
+
+# ---------- Geometry sets before sweeping ----------
+# Complete plate section
+seta PLATE s A_1_in A_2_in A_1_out A_2_out
+
+# Hole boundary and all of its defining points
+seta HOLE l L_H1 L_H2
+seta HOLE p P_HX P_H45 P_HY
+
+# x=0 symmetry boundary and all defining points
+seta XSYMM l L_R2_in L_R2_out
+seta XSYMM p P_HY P_MY P_OY
+
+# y=0 symmetry boundary and all defining points
+seta YSYMM l L_R0_in L_R0_out
+seta YSYMM p P_HX P_MX P_OX
+
+# x=100 load boundary. Both endpoints are essential.
+seta LOAD_FACE l L_LOAD
+seta LOAD_FACE p P_OX P_OC
+
+# y=100 external boundary
+seta TOP_EDGE l L_TOP
+seta TOP_EDGE p P_OC P_OY
+
+# Bottom surface at z=0
+seta BOTTOM s A_1_in A_2_in A_1_out A_2_out
+
+# Complete sets downward before sweep so all mother entities are present
+comp PLATE do
+comp HOLE do
+comp XSYMM do
+comp YSYMM do
+comp LOAD_FACE do
+comp TOP_EDGE do
+comp BOTTOM do
+
+# ---------- Sweep through thickness ----------
+# The trailing 'a' appends generated entities to sets containing their
+# corresponding mother entities.
+swep PLATE UPPER tra 0.0 0.0 10.0 4 a
+
+# ---------- C3D20 mesh ----------
+elty all he20
+mesh all
+
+# Create a temporary set with ALL nodes to search within
+seta all_nodes n all
+
+# Filter out exactly one node around (x=0, y=100, z=0) with a tolerance of 0.1 mm
+enq all_nodes Z_FIX rec 0.0 100.0 0.0 0.1
+
+# Complete sets again after meshing to include nodes, elements and faces
+comp PLATE do
+comp HOLE do
+comp XSYMM do
+comp YSYMM do
+comp LOAD_FACE do
+comp TOP_EDGE do
+comp BOTTOM do
+comp UPPER do
+
+# ---------- Export mesh and sets ----------
+# all.msh contains nodes and C3D20 elements
+send all abq
+
+# Individual reusable set files
+send PLATE abq names
+send HOLE abq names
+send XSYMM abq names
+send YSYMM abq names
+send LOAD_FACE abq names
+send TOP_EDGE abq names
+send BOTTOM abq names
+send UPPER abq names
+send Z_FIX abq names
+
+# Element-based surface files
+send LOAD_FACE abq sur
+
+# ---------- Display and diagnostic information ----------
+plus ea all
+prnt info
+prnt se
