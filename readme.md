@@ -14,6 +14,37 @@ A collection of finite element analysis (FEA) examples using **[CalculiX](http:/
 
 This repository demonstrates how to set up, run, and evaluate FEA simulations using practical engineering examples. It aims to provide a structured and accessible reference for learning finite element analysis, understanding simulation workflows, and exploring the capabilities of CalculiX.
 
+## Prerequisites
+* CalculiX GraphiX (cgx) and CrunchiX (ccx) 2.23, see [INSTALLATION](INSTALLATION_LINUX.md) for Ubuntu/Debian.
+
+## Getting Started
+1. Clone this repository:
+```
+git clone https://github.com/mkhan138/calculix-fea-examples
+```
+
+2. Navigate to an example directory:
+```
+cd ./calculix-fea-examples/structural/linear_static/01_cube/
+```
+
+3. Run the simulation using the CalculiX CrunchiX solver:
+```
+ccx -i cube_linearstatic.inp
+```
+
+4. Inspect the results with CalculiX GraphiX.
+```
+cgx -v cube_linearstatic.frd
+```
+
+See the individual example directories for model-specific instructions.
+
+5. Execute the following from root directory for running all examples on this repository:
+```
+python run_all.py
+```
+
 ## Repository Structure
 ```text
 calculix-fea-examples/
@@ -24,15 +55,6 @@ calculix-fea-examples/
 ```
 
 The repository is organized by physical domain and analysis type. Each example is intended to be self-contained, with its own model files, documentation, and relevant results.
-
-## Getting Started
-1. Install CalculiX using the appropriate version for your operating system.
-2. Clone this repository.
-3. Navigate to an example directory.
-4. Review the example documentation and input files.
-5. Run the simulation using the CalculiX solver and inspect the results with a compatible postprocessor.
-
-See the individual example directories for model-specific instructions.
 
 ## Validation and Accuracy
 Where applicable, simulation results will be compared against analytical solutions, established benchmarks, or other reference data.

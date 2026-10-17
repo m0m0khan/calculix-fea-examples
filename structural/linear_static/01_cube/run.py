@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This script automates the generation of mesh geometries and parses .frd output 
 files for displacement-controlled and force-controlled cube simulations.
